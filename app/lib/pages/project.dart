@@ -15,29 +15,89 @@ class _ProjectPageState extends State<ProjectPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: navBar(),
-      body: ListView(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
-          children: <Column>[
-            Column(
-              children: [
-                Text('MEME'),
-                Text('MEME'),
-                Text('MEME'),
-                Text('MEME'),
-              ],
-            ),
-            Column(
-              children: [
-                Text('LMAO'),
-                Text('LMAO'),
-                Text('LMAO'),
-                Text('LMAO'),
-              ],
-            ),
+      body: SafeArea(
+        child: Row(
+          children: [
+            SizedBox(
+              width: 200,
+              height: double.maxFinite,
+              child: Column(
+                children: [
+                  GroupName(),
+                  Flexible(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.black,
+                          margin: EdgeInsets.all(8),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GroupName()
+                ]
+              ),
+            )
           ],
         )
+      )
     );
   }
 

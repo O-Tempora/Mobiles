@@ -6,7 +6,8 @@ class GroupName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.bottomLeft,
+      alignment: Alignment.centerLeft,
+      width: double.maxFinite,
       margin: const EdgeInsets.fromLTRB(0, 4, 0, 4),
       decoration: const BoxDecoration(
         color: Colors.amber,
