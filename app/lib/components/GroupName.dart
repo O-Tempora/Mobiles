@@ -5,18 +5,19 @@ class GroupName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      width: double.maxFinite,
-      margin: const EdgeInsets.fromLTRB(0, 4, 0, 4),
-      decoration: const BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.all(Radius.circular(8))
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(0, 4, 0, 4),
+        decoration: const BoxDecoration(
+          color: Colors.amber,
+          borderRadius: BorderRadius.all(Radius.circular(8))
+        ),
+        child: const Padding(
+          padding: EdgeInsets.all(2),
+          child: Text('Done', style: TextStyle(color: Colors.black))
+        )
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(2),
-        child: Text('Done', style: TextStyle(color: Colors.black))
-      )
     );
   }
 }

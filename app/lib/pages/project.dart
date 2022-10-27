@@ -1,6 +1,5 @@
+import 'package:app/components/TaskGroup.dart';
 import 'package:flutter/material.dart';
-import 'package:app/components/AddButton.dart';
-import 'package:app/components/GroupName.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -15,87 +14,19 @@ class _ProjectPageState extends State<ProjectPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: navBar(),
-      body: SafeArea(
-        child: Row(
-          children: [
-            SizedBox(
-              width: 200,
-              height: double.maxFinite,
-              child: Column(
-                children: [
-                  GroupName(),
-                  Flexible(
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.black,
-                          margin: EdgeInsets.all(8),
-                        ),
-                      ],
-                    ),
-                  ),
-                  GroupName()
-                ]
-              ),
-            )
-          ],
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(12),
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              TaskGroup(),
+              TaskGroup(),
+              TaskGroup()
+            ],
+          ),
         )
       )
     );
@@ -137,7 +68,7 @@ class _ProjectPageState extends State<ProjectPage> {
               )
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 ElevatedButton.icon(
                     icon: const Icon(Icons.emoji_people, color: Color.fromRGBO(212, 190, 242, 1.0)),
