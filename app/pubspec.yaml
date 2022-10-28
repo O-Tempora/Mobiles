@@ -61,8 +61,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/Authentication.png
-    - assets/Registration.png
     - assets/Auth.svg
     - assets/
 

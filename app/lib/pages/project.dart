@@ -1,4 +1,6 @@
+import 'package:app/components/ProjectDrawer.dart';
 import 'package:app/components/TaskGroup.dart';
+import 'package:app/pages/info.dart';
 import 'package:flutter/material.dart';
 
 class ProjectPage extends StatefulWidget {
@@ -9,10 +11,14 @@ class ProjectPage extends StatefulWidget {
 }
 
 class _ProjectPageState extends State<ProjectPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
+      drawer: ProjectDrawer(),
       appBar: navBar(),
       body: SizedBox(
         width: double.infinity,
@@ -49,9 +55,9 @@ class _ProjectPageState extends State<ProjectPage> {
         icon: const Icon(
           Icons.menu, 
           color: Color.fromRGBO(212, 190, 242, 1.0), 
-          size: 35.0
+          size: 35.0,
         ),
-        onPressed: (){},
+        onPressed: () => _scaffoldKey.currentState!.openDrawer(),
       ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(70),
@@ -94,7 +100,12 @@ class _ProjectPageState extends State<ProjectPage> {
                         EdgeInsets.fromLTRB(4, 2, 8, 2)
                       )
                     ),
-                    onPressed: (){},
+                    onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder:(context) => const InfoPage())
+                    )
+                  },
                   ),
                 ElevatedButton.icon(
                     icon: const Icon(Icons.task, color: Color.fromRGBO(212, 190, 242, 1.0)),

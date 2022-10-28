@@ -1,0 +1,5 @@
+{
+    "name": "Project Name Sample",
+    "members": "sampleMember1, sampleMember2",
+    "repo": "github.sampleRepo"
+}
