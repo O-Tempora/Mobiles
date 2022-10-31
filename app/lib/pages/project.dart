@@ -106,7 +106,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       MaterialPageRoute(builder:(context) => const InfoPage())
                     )
                   },
-                  ),
+                ),
                 ElevatedButton.icon(
                     icon: const Icon(Icons.task, color: Color.fromRGBO(212, 190, 242, 1.0)),
                     label: const Text('Add group', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),

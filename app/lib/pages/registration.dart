@@ -17,7 +17,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 60),
             child: logo()
           ),
           fields()

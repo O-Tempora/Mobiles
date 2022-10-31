@@ -12,9 +12,9 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
-    String name = "1111111";
-    String members = "2222222";
-    String repo = "33333333";
+    String name = "";
+    String members = "";
+    String repo = "";
   Future<void> readJson() async{
     final String response = await rootBundle.loadString("assets/test.json");
     final data = await jsonDecode(response);

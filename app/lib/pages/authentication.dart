@@ -19,7 +19,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 80),
             child: logo()
           ),
           fields()
