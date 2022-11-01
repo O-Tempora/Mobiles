@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:app/components/GroupName.dart';
 import 'package:app/components/AddButton.dart';
+import 'package:app/components/Task.dart';
 
 class TaskGroup extends StatefulWidget {
   const TaskGroup({super.key});
@@ -16,7 +17,7 @@ class _TaskGroupState extends State<TaskGroup> {
       padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
       child: SizedBox(
         height: double.infinity,
-        width: 200,
+        width: 220,
         child: Column(
           children: [
             GroupName(),
@@ -24,70 +25,15 @@ class _TaskGroupState extends State<TaskGroup> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
-                  Container(
-                    width: 100,
-                    height: 40,
-                    color: Colors.black,
-                    margin: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  ),
+                  Task(),
+                  Task(),
+                  Task(),
+                  Task(),
+                  Task(),
+                  AddButton()
                 ],
               ),
             ),
-            AddButton()
           ]
         ),
       ),

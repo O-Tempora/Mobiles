@@ -13,7 +13,7 @@ class _AddButtonState extends State<AddButton> {
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(0, 4, 0, 4),
+        margin: const EdgeInsets.all(4),
         child: ElevatedButton.icon(
           icon: const Icon(Icons.add_box, color: Color.fromRGBO(212, 190, 242, 1.0)),
           label: const Text('Add', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),

@@ -28,8 +28,6 @@ class _ProjectPageState extends State<ProjectPage> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              TaskGroup(),
-              TaskGroup(),
               TaskGroup()
             ],
           ),
@@ -65,14 +63,6 @@ class _ProjectPageState extends State<ProjectPage> {
           padding: const EdgeInsets.fromLTRB(20, 2, 20, 2),
           child: Container(
             alignment: Alignment.bottomCenter,
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  width: 2.0,
-                  color: Colors.black54
-                )
-              )
-            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

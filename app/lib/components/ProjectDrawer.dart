@@ -17,7 +17,7 @@ class _ProjectDrawerState extends State<ProjectDrawer> {
         children: [
           const SizedBox(
             width: double.maxFinite,
-            height: 80,
+            height: 110,
             child: DrawerHeader(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
@@ -42,44 +42,56 @@ class _ProjectDrawerState extends State<ProjectDrawer> {
             child: ListView(
               padding: const EdgeInsets.all(2),
               children: [
-                ListTile(
-                  title: Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Mobiles course work', 
-                      style: TextStyle(
-                        color: Color.fromRGBO(212, 190, 242, 1.0), 
-                        fontSize: 16
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                  child: ListTile(
+                    tileColor: Color.fromARGB(255, 59, 59, 59),
+                    title: Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Text(
+                        'Mobiles course work', 
+                        style: TextStyle(
+                          color: Color.fromRGBO(212, 190, 242, 1.0), 
+                          fontSize: 16
+                        )
                       )
-                    )
+                    ),
+                    onTap: () => {Navigator.of(context).pop()},
                   ),
-                  onTap: () => {Navigator.of(context).pop()},
                 ),
-                ListTile(
-                  title: Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Diploma', 
-                      style: TextStyle(
-                        color: Color.fromRGBO(212, 190, 242, 1.0), 
-                        fontSize: 16
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                  child: ListTile(
+                    tileColor: Color.fromARGB(255, 59, 59, 59),
+                    title: Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Text(
+                        'Diploma', 
+                        style: TextStyle(
+                          color: Color.fromRGBO(212, 190, 242, 1.0), 
+                          fontSize: 16
+                        )
                       )
-                    )
+                    ),
+                    onTap: () => {Navigator.of(context).pop()},
                   ),
-                  onTap: () => {Navigator.of(context).pop()},
                 ),
-                ListTile(
-                  title: Container(
-                    alignment: Alignment.centerLeft,
-                    child: const Text(
-                      'Flutter goes brrrrrr', 
-                      style: TextStyle(
-                        color: Color.fromRGBO(212, 190, 242, 1.0), 
-                        fontSize: 16
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                  child: ListTile(
+                    tileColor: Color.fromARGB(255, 59, 59, 59),
+                    title: Container(
+                      alignment: Alignment.centerLeft,
+                      child: const Text(
+                        'Flutter goes brrrrrr', 
+                        style: TextStyle(
+                          color: Color.fromRGBO(212, 190, 242, 1.0), 
+                          fontSize: 16
+                        )
                       )
-                    )
+                    ),
+                    onTap: () => {Navigator.of(context).pop()},
                   ),
-                  onTap: () => {Navigator.of(context).pop()},
                 ),
               ],
             ),

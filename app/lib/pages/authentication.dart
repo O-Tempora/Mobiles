@@ -15,6 +15,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       body: Column(
         children: <Widget>[
