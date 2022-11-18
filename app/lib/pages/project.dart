@@ -2,6 +2,7 @@ import 'package:app/components/ProjectDrawer.dart';
 import 'package:app/components/TaskGroup.dart';
 import 'package:app/pages/info.dart';
 import 'package:flutter/material.dart';
+import 'package:app/pages/members.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -77,8 +78,13 @@ class _ProjectPageState extends State<ProjectPage> {
                         EdgeInsets.fromLTRB(4, 2, 8, 2)
                       )
                     ),
-                    onPressed: (){}, 
-                  ),
+                    onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder:(context) => const MembersPage())
+                    )
+                  }, 
+                ),
                 ElevatedButton.icon(
                     icon: const Icon(Icons.info, color: Color.fromRGBO(212, 190, 242, 1.0)),
                     label: const Text('Info', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),
@@ -98,18 +104,18 @@ class _ProjectPageState extends State<ProjectPage> {
                   },
                 ),
                 ElevatedButton.icon(
-                    icon: const Icon(Icons.task, color: Color.fromRGBO(212, 190, 242, 1.0)),
-                    label: const Text('Add group', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll<Color>(
-                        Theme.of(context).primaryColor
-                      ),
-                      padding: const MaterialStatePropertyAll<EdgeInsets>(
-                        EdgeInsets.fromLTRB(4, 2, 8, 2)
-                      )
+                  icon: const Icon(Icons.task, color: Color.fromRGBO(212, 190, 242, 1.0)),
+                  label: const Text('Add group', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                      Theme.of(context).primaryColor
                     ),
-                    onPressed: (){},
+                    padding: const MaterialStatePropertyAll<EdgeInsets>(
+                      EdgeInsets.fromLTRB(4, 2, 8, 2)
+                    )
                   ),
+                  onPressed: (){},
+                ),
               ],
             ),
           ),

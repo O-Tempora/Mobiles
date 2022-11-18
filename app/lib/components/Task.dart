@@ -1,6 +1,7 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:app/pages/taskDetailed.dart';
 
 class Task extends StatefulWidget {
   const Task({super.key});
@@ -13,7 +14,12 @@ class _TaskState extends State<Task> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder:(context) => const TaskDetailed())
+        )
+      },
       child: Card(
         elevation: 4.0,
         shape: RoundedRectangleBorder(

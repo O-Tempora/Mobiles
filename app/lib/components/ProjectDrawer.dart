@@ -44,53 +44,62 @@ class _ProjectDrawerState extends State<ProjectDrawer> {
               children: [
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  child: ListTile(
-                    tileColor: Color.fromARGB(255, 59, 59, 59),
-                    title: Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        'Mobiles course work', 
-                        style: TextStyle(
-                          color: Color.fromRGBO(212, 190, 242, 1.0), 
-                          fontSize: 16
+                  child: Card(
+                    color: Color.fromARGB(255, 39, 41, 41),
+                    elevation: 16,
+                    child: ListTile(
+                      title: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          'Mobiles course work', 
+                          style: TextStyle(
+                            color: Color.fromRGBO(212, 190, 242, 1.0), 
+                            fontSize: 16
+                          )
                         )
-                      )
+                      ),
+                      onTap: () => {Navigator.of(context).pop()},
                     ),
-                    onTap: () => {Navigator.of(context).pop()},
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  child: ListTile(
-                    tileColor: Color.fromARGB(255, 59, 59, 59),
-                    title: Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        'Diploma', 
-                        style: TextStyle(
-                          color: Color.fromRGBO(212, 190, 242, 1.0), 
-                          fontSize: 16
+                  child: Card(
+                    color: Color.fromARGB(255, 39, 41, 41),
+                    elevation: 16,
+                    child: ListTile(
+                      title: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          'Diploma', 
+                          style: TextStyle(
+                            color: Color.fromRGBO(212, 190, 242, 1.0), 
+                            fontSize: 16
+                          )
                         )
-                      )
+                      ),
+                      onTap: () => {Navigator.of(context).pop()},
                     ),
-                    onTap: () => {Navigator.of(context).pop()},
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                  child: ListTile(
-                    tileColor: Color.fromARGB(255, 59, 59, 59),
-                    title: Container(
-                      alignment: Alignment.centerLeft,
-                      child: const Text(
-                        'Flutter goes brrrrrr', 
-                        style: TextStyle(
-                          color: Color.fromRGBO(212, 190, 242, 1.0), 
-                          fontSize: 16
+                  child: Card(
+                    color: Color.fromARGB(255, 39, 41, 41),
+                    elevation: 16,
+                    child: ListTile(
+                      title: Container(
+                        alignment: Alignment.centerLeft,
+                        child: const Text(
+                          'Pomogite', 
+                          style: TextStyle(
+                            color: Color.fromRGBO(212, 190, 242, 1.0), 
+                            fontSize: 16
+                          )
                         )
-                      )
+                      ),
+                      onTap: () => {Navigator.of(context).pop()},
                     ),
-                    onTap: () => {Navigator.of(context).pop()},
                   ),
                 ),
               ],

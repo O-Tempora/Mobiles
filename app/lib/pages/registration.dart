@@ -18,7 +18,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(top: 60),
+            padding: const EdgeInsets.only(top: 40),
             child: logo()
           ),
           fields()
@@ -57,11 +57,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget fields(){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(30, 25, 30, 10),
-      child: Align(
-        alignment: Alignment.center,
-        child: Column(
+      return Flexible(
+        child: ListView(
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
           children: <Widget>[
             TextField(
               decoration: InputDecoration(
@@ -70,6 +68,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 fillColor: const Color.fromRGBO(217, 217, 217, 1.0),
                 hintText: 'Email',
                 hintStyle: const TextStyle(fontStyle: FontStyle.italic)
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+                  filled: true,
+                  fillColor: const Color.fromRGBO(217, 217, 217, 1.0),
+                  hintText: 'Name',
+                  hintStyle: const TextStyle(fontStyle: FontStyle.italic)
+                ),
               ),
             ),
             Padding(
@@ -136,8 +146,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               )
             ),
           ],
-        )
-      )
-    );
+          ),
+      );
   }
 }
