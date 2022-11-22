@@ -23,6 +23,7 @@ Future<io.File> get _userFile async {
     users.add(User(login:"OriginalLogin1", name:"Valera Semyonov", email:"dy311rd638@gmail.com", password:"qwerty12345"));
     users.add(User(login:"Log In 2", name:"Dima Vasilyev", email:"ifhc32ufc2@gmail.com", password:"12345qwerty"));
     users.add(User(login:"Lmaodel", name:"Vova Vist", email:"udolbru123@gmail.com", password:"q1w2e3r4t5"));
+    users.add(User(login:"Admin", name:"AdminAdmin", email:"admin@gmail.com", password:"adminadmin"));
     file.writeAsString(jsonEncode(users.map((e) => e.toJson()).toList()));
   }
   return file;

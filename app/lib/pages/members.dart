@@ -118,6 +118,7 @@ class _MembersPageState extends State<MembersPage> {
                         ]
                       ),
                       trailing: InkWell(
+                        borderRadius: const BorderRadius.all(Radius.circular(12)),
                         onTap: () => {
                           setState(() {
                             DeleteUser(userList[index].login);

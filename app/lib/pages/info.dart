@@ -1,9 +1,10 @@
-
 import 'dart:convert';
-
+import 'dart:ffi';
+import 'package:app/domain/info/info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:app/domain/infoManager.dart';
 class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
 
@@ -12,28 +13,30 @@ class InfoPage extends StatefulWidget {
 }
 
 class _InfoPageState extends State<InfoPage> {
-    String name = "";
-    String members = "";
-    String repo = "";
-  Future<void> readJson() async{
-    final String response = await rootBundle.loadString("assets/test.json");
-    final data = await jsonDecode(response);
+  Info info = Info(description: "", name: "", repository: "");
+  TextEditingController nameController = TextEditingController();
+  TextEditingController descrController = TextEditingController();
+  TextEditingController repoController = TextEditingController();
+
+  Future<void> GetInfo() async{
+    info = await getInfo();
     setState(() {
-      name = data["name"];
-      members = data["members"];
-      repo = data["repo"];
+      nameController.text = info.name;
+      descrController.text = info.description;
+      repoController.text = info.repository;
     });
   }
 
   @override
   void initState(){
+    GetInfo();
     super.initState();
-    readJson();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
@@ -67,80 +70,106 @@ class _InfoPageState extends State<InfoPage> {
               child: Column(
                 children: [
                   const Padding(
-                    padding: EdgeInsets.all(6),
+                    padding: EdgeInsets.fromLTRB(6, 16, 6, 6),
                     child: Text(
-                      'Name',
+                      'Project Name',
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
                         color: Color.fromRGBO(212, 190, 242, 1.0)
                       )
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-                        filled: true,
-                        fillColor: const Color.fromARGB(255, 51, 47, 47),
-                        hintText: name,
-                        hintStyle: const TextStyle(
-                          color: Colors.white
-                        )
-                      ),
+                  TextField(
+                    controller: nameController,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      fillColor: Theme.of(context).primaryColor,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.white
                     ),
                   ),
                   const Padding(
-                    padding: EdgeInsets.all(6),
+                    padding: EdgeInsets.fromLTRB(6, 16, 6, 6),
+                    child: Text(
+                      'Description',
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        color: Color.fromRGBO(212, 190, 242, 1.0)
+                      )
+                    ),
+                  ),
+                  TextField(
+                    controller: descrController,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      fillColor: Theme.of(context).primaryColor,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.white
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.fromLTRB(6, 16, 6, 6),
                     child: Text(
                       'Repository',
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 26,
                         fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
                         color: Color.fromRGBO(212, 190, 242, 1.0)
                       )
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-                        filled: true,
-                        fillColor: const Color.fromARGB(255, 51, 47, 47),
-                        hintText: repo,
-                        hintStyle: const TextStyle(
-                          color: Colors.white
-                        )
+                  TextField(
+                    controller: repoController,
+                    textInputAction: TextInputAction.newline,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      fillColor: Theme.of(context).primaryColor,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.white
+                    ),
+                    onSubmitted: (value) {
+                      info.repository = value;
+                      updateInfo(info);
+                    },
+                  ),
+                  ElevatedButton.icon(
+                    style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                        Colors.green
                       ),
                     ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(6),
-                    child: Text(
-                      'Members',
+                    onPressed:() {
+                      info.name = nameController.text;
+                      info.description = descrController.text;
+                      info.repository = repoController.text;
+                      updateInfo(info);
+                    }, 
+                    icon: Icon(
+                      Icons.check,
+                      size: 20,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    label: Text(
+                      'Save',
                       style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromRGBO(212, 190, 242, 1.0)
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20
                       )
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
-                        filled: true,
-                        fillColor: const Color.fromARGB(255, 51, 47, 47),
-                        hintText: members,
-                        hintStyle: const TextStyle(
-                          color: Colors.white
-                        )
-                      ),
-                    ),
-                  ),
+                    ) 
+                  )
                 ]
               ),
             )
