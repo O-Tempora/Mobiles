@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class MemberCard extends StatefulWidget {
 
   final String login;
   final String name;
   final String email;
-  const MemberCard(this.login, this.name, this.email);
+  const MemberCard({super.key, required this.login, required this.name, required this.email});
 
   @override
   State<MemberCard> createState() => _MemberCardState();
@@ -17,7 +18,7 @@ class _MemberCardState extends State<MemberCard> {
     return Card(
       elevation: 12,
       color: Theme.of(context).primaryColor,
-      margin: EdgeInsets.fromLTRB(4, 8, 4, 8),
+      margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10)
       ),
@@ -28,10 +29,10 @@ class _MemberCardState extends State<MemberCard> {
           color: Color.fromARGB(255, 156, 221, 103)
         ),
         title: Padding(
-          padding: EdgeInsets.fromLTRB(0, 4, 4, 4),
+          padding: const EdgeInsets.fromLTRB(0, 4, 4, 4),
           child: Text(
             widget.login, 
-            style: TextStyle(
+            style: const TextStyle(
               color: Color.fromARGB(255, 199, 118, 236), 
               fontSize: 20, 
               fontWeight: FontWeight.w600
@@ -42,20 +43,20 @@ class _MemberCardState extends State<MemberCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(0, 4, 2, 4),
+              padding: const EdgeInsets.fromLTRB(0, 4, 2, 4),
               child: Text(
                 widget.name, 
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white, 
                   fontSize: 14, 
                 )
               ),
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(0, 4, 2, 4),
+              padding: const EdgeInsets.fromLTRB(0, 4, 2, 4),
               child: Text(
                 widget.email, 
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white, 
                   fontSize: 14, 
                   fontStyle: FontStyle.italic
@@ -64,10 +65,13 @@ class _MemberCardState extends State<MemberCard> {
             ),
           ]
         ),
-        trailing: Icon(
-          Icons.delete_forever, 
-          size: 40, 
-          color: Color.fromARGB(255, 211, 71, 90)
+        trailing: InkWell(
+          onTap: () => {},
+          child: const Icon(
+            Icons.delete_forever, 
+            size: 40, 
+            color: Color.fromARGB(255, 211, 71, 90)
+          ),
         )
       )
     );

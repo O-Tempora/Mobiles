@@ -12,11 +12,15 @@ class MembersPage extends StatefulWidget {
 }
 
 class _MembersPageState extends State<MembersPage> {
+  final _key = GlobalKey<State<MemberCard>>();
   List<User> userList = List<User>.empty(growable: true);
 
   GetAllUsers() async{
     userList = await getUsers();
     setState(() {});
+  }
+  DeleteUser(String login) async{
+    await deleteUser(login);
   }
 
   @override
@@ -53,10 +57,82 @@ class _MembersPageState extends State<MembersPage> {
               height: 200,
               child: SvgPicture.asset('assets/Members.svg', width: double.infinity,)
             ),
+            // Flexible(
+            //   child: ListView(
+            //     children: 
+            //       userList.map((e) => MemberCard(key: _key, login: e.login, name: e.name, email: e.email)).toList(),
+            //   ),
+            // )
             Flexible(
-              child: ListView(
-                children: 
-                  userList.map((e) => MemberCard(e.login, e.name, e.email)).toList(),
+              child: ListView.builder(
+                itemCount: userList.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 12,
+                    color: Theme.of(context).primaryColor,
+                    margin: const EdgeInsets.fromLTRB(4, 8, 4, 8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.person_pin_circle_outlined, 
+                        size: 40, 
+                        color: Color.fromARGB(255, 156, 221, 103)
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 4, 4, 4),
+                        child: Text(
+                          userList[index].login, 
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 199, 118, 236), 
+                            fontSize: 20, 
+                            fontWeight: FontWeight.w600
+                          ),
+                        )
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(0, 4, 2, 4),
+                            child: Text(
+                              userList[index].name, 
+                              style: const TextStyle(
+                                color: Colors.white, 
+                                fontSize: 14, 
+                              )
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(0, 4, 2, 4),
+                            child: Text(
+                              userList[index].email, 
+                              style: const TextStyle(
+                                color: Colors.white, 
+                                fontSize: 14, 
+                                fontStyle: FontStyle.italic
+                              )
+                            ),
+                          ),
+                        ]
+                      ),
+                      trailing: InkWell(
+                        onTap: () => {
+                          setState(() {
+                            DeleteUser(userList[index].login);
+                            userList.removeAt(index);
+                          },)
+                        },
+                        child: const Icon(
+                          Icons.delete_forever, 
+                          size: 40, 
+                          color: Color.fromARGB(255, 211, 71, 90)
+                        ),
+                      )
+                    )
+                  );
+                },
               ),
             )
           ]

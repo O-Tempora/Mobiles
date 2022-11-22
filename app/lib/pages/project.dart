@@ -81,7 +81,7 @@ class _ProjectPageState extends State<ProjectPage> {
                     onPressed: () => {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder:(context) => const MembersPage())
+                      MaterialPageRoute(builder:(context) => MembersPage())
                     )
                   }, 
                 ),
