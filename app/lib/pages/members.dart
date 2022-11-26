@@ -2,7 +2,7 @@ import 'package:app/domain/userManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:app/components/MemberCard.dart';
-import 'package:app/domain/user.dart';
+import 'package:app/domain/user/user.dart';
 
 class MembersPage extends StatefulWidget {
   const MembersPage({super.key});

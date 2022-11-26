@@ -1,10 +1,7 @@
-import 'package:app/domain/user.dart';
 import 'dart:async';
 import 'dart:io' as io;
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:app/domain/info/info.dart';
 
 Future<String> get _localPath async {

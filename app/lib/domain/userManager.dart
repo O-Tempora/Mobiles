@@ -1,4 +1,4 @@
-import 'package:app/domain/user.dart';
+import 'package:app/domain/user/user.dart';
 import 'dart:async';
 import 'dart:io' as io;
 import 'dart:convert';
