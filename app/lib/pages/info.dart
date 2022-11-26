@@ -81,16 +81,24 @@ class _InfoPageState extends State<InfoPage> {
                       )
                     ),
                   ),
-                  TextField(
-                    controller: nameController,
-                    textInputAction: TextInputAction.newline,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      fillColor: Theme.of(context).primaryColor,
-                    ),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white
+                  InkWell(
+                    onFocusChange: (value) {
+                      if (value == false){
+                        info.name = nameController.text;
+                        updateInfo(info);
+                      }
+                    },
+                    child: TextField(
+                      controller: nameController,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        fillColor: Theme.of(context).primaryColor,
+                      ),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white
+                      ),
                     ),
                   ),
                   const Padding(
@@ -105,16 +113,24 @@ class _InfoPageState extends State<InfoPage> {
                       )
                     ),
                   ),
-                  TextField(
-                    controller: descrController,
-                    textInputAction: TextInputAction.newline,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      fillColor: Theme.of(context).primaryColor,
-                    ),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white
+                  InkWell(
+                    onFocusChange: (value) {
+                      if (value == false){
+                        info.name = nameController.text;
+                        updateInfo(info);
+                      }
+                    },
+                    child: TextField(
+                      controller: descrController,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        fillColor: Theme.of(context).primaryColor,
+                      ),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white
+                      ),
                     ),
                   ),
                   const Padding(
@@ -129,47 +145,30 @@ class _InfoPageState extends State<InfoPage> {
                       )
                     ),
                   ),
-                  TextField(
-                    controller: repoController,
-                    textInputAction: TextInputAction.newline,
-                    maxLines: null,
-                    decoration: InputDecoration(
-                      fillColor: Theme.of(context).primaryColor,
-                    ),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.white
-                    ),
-                    onSubmitted: (value) {
-                      info.repository = value;
-                      updateInfo(info);
+                  InkWell(
+                    onFocusChange: (value) {
+                      if (value == false){
+                        info.name = nameController.text;
+                        updateInfo(info);
+                      }
                     },
-                  ),
-                  ElevatedButton.icon(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                        Colors.green
+                    child: TextField(
+                      controller: repoController,
+                      textInputAction: TextInputAction.newline,
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        fillColor: Theme.of(context).primaryColor,
                       ),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.white
+                      ),
+                      onSubmitted: (value) {
+                        info.repository = value;
+                        updateInfo(info);
+                      },
                     ),
-                    onPressed:() {
-                      info.name = nameController.text;
-                      info.description = descrController.text;
-                      info.repository = repoController.text;
-                      updateInfo(info);
-                    }, 
-                    icon: Icon(
-                      Icons.check,
-                      size: 20,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    label: Text(
-                      'Save',
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 20
-                      )
-                    ) 
-                  )
+                  ),
                 ]
               ),
             )

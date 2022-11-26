@@ -17,6 +17,7 @@ Future<io.File> get _infoFile async {
   io.File file;
   if (await io.File('$path/info.json').exists()){
     file = io.File('$path/info.json');
+    return file;
   } else {
     io.File('$path/info.json').create(recursive: true);
     file = io.File('$path/info.json');
@@ -24,13 +25,13 @@ Future<io.File> get _infoFile async {
                         name: "Тестовый курсовой проект по мобилкам", 
                         repository: "https://github.com/O-Tempora/Mobiles");
     file.writeAsString(jsonEncode(projInfo));
+    return file;
   }
-  return file;
 }
 
 Future<Info> getInfo() async{
   final file = await _infoFile;
-  Info info = Info.fromJson(jsonDecode(await file.readAsString()));
+  var info = Info.fromJson(jsonDecode(await file.readAsString()));
   return info;
 } 
 
