@@ -23,6 +23,8 @@ Future<io.File> get _taskFile async {
   } else {
     io.File('$path/task.json').create(recursive: true);
     file = io.File('$path/task.json');
+    
+    var taskGroups = <List<TaskGroup>>[];
 
     var groups = <TaskGroup>[
       TaskGroup(
@@ -50,6 +52,10 @@ Future<io.File> get _taskFile async {
         ], 
         color: 0xf46749
       ),
+    ];
+    taskGroups.add(groups);
+
+    var groups2 = <TaskGroup>[
       TaskGroup(
         name: "Тестик", 
         tasks: <Task>[
@@ -64,19 +70,26 @@ Future<io.File> get _taskFile async {
         color: 0x49f468
       ),
     ];
+    taskGroups.add(groups2);
 
-    file.writeAsString(jsonEncode(groups));
+    file.writeAsString(jsonEncode(taskGroups.map((e) => e.map((l) => l.toJson()).toList()).toList()));
     return file;
   }
 }
 
-Future<Info> getInfo() async{
+Future<List<TaskGroup>> getTasks() async{
   final file = await _taskFile;
-  var info = Info.fromJson(jsonDecode(await file.readAsString()));
-  return info;
+  var tasks = jsonDecode(await file.readAsString()) as List;
+
+  var t = <TaskGroup>[];
+  tasks.forEach((element) {
+    var tasks = TaskGroup.fromJson(element[0]);
+    t.add(tasks);
+  });
+  return t;
 } 
 
-Future<void> updateInfo(Info inf) async{
-  final file = await _taskFile;
-  file.writeAsString(jsonEncode(inf));
-}
+// Future<void> updateInfo(Info inf) async{
+//   final file = await _taskFile;
+//   file.writeAsString(jsonEncode(inf));
+// }

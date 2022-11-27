@@ -1,8 +1,9 @@
 import 'package:app/components/ProjectDrawer.dart';
-import 'package:app/components/TaskGroup.dart';
+import 'package:app/domain/taskGroupManager.dart';
 import 'package:app/pages/info.dart';
 import 'package:flutter/material.dart';
 import 'package:app/pages/members.dart';
+import 'package:app/domain/taskGroup/taskGroup.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -13,6 +14,20 @@ class ProjectPage extends StatefulWidget {
 
 class _ProjectPageState extends State<ProjectPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  //List<TaskGroup> userList = List<TaskGroup>.empty(growable: true);
+
+  GetTasks() async{
+    /*var userList = await*/ getTasks();
+    setState(() {
+      //print(userList);
+    });
+  }
+
+  @override
+  void initState() {
+    GetTasks();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +44,7 @@ class _ProjectPageState extends State<ProjectPage> {
           scrollDirection: Axis.horizontal,
           child: Row(
             children: [
-              TaskGroup()
+              //TaskGroup()
             ],
           ),
         )
