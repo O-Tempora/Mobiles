@@ -1,9 +1,11 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:app/domain/task/task.dart';
 
 class TaskDetailed extends StatefulWidget {
-  const TaskDetailed({super.key});
+  final Task task;
+  const TaskDetailed({super.key, required this.task});
 
   @override
   State<TaskDetailed> createState() => _TaskDetailedState();
@@ -42,9 +44,9 @@ class _TaskDetailedState extends State<TaskDetailed> {
                   )
                 )
               ),
-              child: const Text(
-                'TaskDescr1TaskDescr1TaskDescr1TaskDescr1TaskDescr1TaskDescr1TaskDescr1TaskDescr1TaskDescr1TaskDescr1',
-                style: TextStyle(
+              child: Text(
+                widget.task.description,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20
                 )
@@ -78,38 +80,23 @@ class _TaskDetailedState extends State<TaskDetailed> {
                   ),
                 ),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Wrap(
-                      spacing: 4,
-                      runSpacing: 2,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: RichText(
-                            text: const TextSpan(
-                              children: [
-                                WidgetSpan(
-                                  child: Icon(
-                                    Icons.catching_pokemon, 
-                                    color: Colors.white,
-                                    size: 26,
-                                  )
-                                ),
-                                TextSpan(
-                                  text: 'Chel', 
-                                  style: TextStyle(
-                                    color: Colors.white, 
-                                    fontSize: 24
-                                  )
-                                )
-                              ]
-                            ), 
+                  child: ListView.separated(
+                    padding: EdgeInsets.fromLTRB(16, 12, 10, 4),
+                    shrinkWrap: true,
+                    itemCount: widget.task.members.length,
+                    itemBuilder:(context, index) {
+                      return InkWell(
+                        child: Text(
+                          widget.task.members[index].login,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        )
+                      );
+                    }, 
+                    separatorBuilder:(context, index) => Divider(height: 12, thickness: 1,), 
+                  )
                 ),
               ]
             ),
@@ -141,27 +128,23 @@ class _TaskDetailedState extends State<TaskDetailed> {
                   ),
                 ),
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Wrap(
-                      spacing: 4,
-                      runSpacing: 2,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: RichText(
-                            text: const TextSpan(
-                              text: 'Chel', 
-                              style: TextStyle(
-                                color: Colors.white, 
-                                fontSize: 24
-                              )
-                            )
+                  child: ListView.separated(
+                    padding: EdgeInsets.fromLTRB(66, 12, 10, 4),
+                    shrinkWrap: true,
+                    itemCount: widget.task.tags.length,
+                    itemBuilder:(context, index) {
+                      return InkWell(
+                        child: Text(
+                          widget.task.tags[index],
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
+                        )
+                      );
+                    }, 
+                    separatorBuilder:(context, index) => Divider(height: 12, thickness: 1,), 
+                  )
                 ),
               ]
             )

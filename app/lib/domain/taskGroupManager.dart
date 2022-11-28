@@ -8,7 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:app/domain/info/info.dart';
 import 'package:app/domain/task/task.dart';
 import 'package:app/domain/taskGroup/taskGroup.dart';
-
+import 'package:flutter/material.dart';
 Future<String> get _localPath async {
   final directory = await getApplicationDocumentsDirectory();
   return directory.path;
@@ -50,7 +50,7 @@ Future<io.File> get _taskFile async {
               ]
           ),
         ], 
-        color: 0xf46749
+        color: Color(0xb03df3d5 ).value
       ),
     ];
     taskGroups.add(groups);
@@ -67,7 +67,7 @@ Future<io.File> get _taskFile async {
               ]
           ),
         ], 
-        color: 0x49f468
+        color: Color(0xb049f468).value
       ),
     ];
     taskGroups.add(groups2);

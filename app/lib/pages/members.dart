@@ -1,7 +1,6 @@
 import 'package:app/domain/userManager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:app/components/MemberCard.dart';
 import 'package:app/domain/user/user.dart';
 
 class MembersPage extends StatefulWidget {
@@ -12,7 +11,6 @@ class MembersPage extends StatefulWidget {
 }
 
 class _MembersPageState extends State<MembersPage> {
-  final _key = GlobalKey<State<MemberCard>>();
   List<User> userList = List<User>.empty(growable: true);
 
   GetAllUsers() async{
@@ -57,12 +55,6 @@ class _MembersPageState extends State<MembersPage> {
               height: 200,
               child: SvgPicture.asset('assets/Members.svg', width: double.infinity,)
             ),
-            // Flexible(
-            //   child: ListView(
-            //     children: 
-            //       userList.map((e) => MemberCard(key: _key, login: e.login, name: e.name, email: e.email)).toList(),
-            //   ),
-            // )
             Flexible(
               child: ListView.builder(
                 itemCount: userList.length,
