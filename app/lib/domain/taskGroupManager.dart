@@ -3,6 +3,7 @@ import 'package:app/pages/taskDetailed.dart';
 import 'dart:async';
 import 'dart:io' as io;
 import 'dart:convert';
+import 'dart:math';
 import 'package:path_provider/path_provider.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:app/domain/info/info.dart';
@@ -24,9 +25,9 @@ Future<io.File> get _taskFile async {
     io.File('$path/task.json').create(recursive: true);
     file = io.File('$path/task.json');
     
-    var taskGroups = <List<TaskGroup>>[];
+    var taskGroups = <TaskGroup>[];
 
-    var groups = <TaskGroup>[
+    var groups = 
       TaskGroup(
         name: "Срочные", 
         tasks: <Task>[
@@ -50,12 +51,11 @@ Future<io.File> get _taskFile async {
               ]
           ),
         ], 
-        color: Color(0xb03df3d5 ).value
-      ),
-    ];
+        color: Color(0xb03df3d5).value
+      );
     taskGroups.add(groups);
 
-    var groups2 = <TaskGroup>[
+    var groups2 = 
       TaskGroup(
         name: "Тестик", 
         tasks: <Task>[
@@ -68,11 +68,10 @@ Future<io.File> get _taskFile async {
           ),
         ], 
         color: Color(0xb049f468).value
-      ),
-    ];
+      );
     taskGroups.add(groups2);
 
-    file.writeAsString(jsonEncode(taskGroups.map((e) => e.map((l) => l.toJson()).toList()).toList()));
+    file.writeAsString(jsonEncode(taskGroups.map((e) => e.toJson()).toList()));
     return file;
   }
 }
@@ -83,11 +82,32 @@ Future<List<TaskGroup>> getTasks() async{
 
   var t = <TaskGroup>[];
   tasks.forEach((element) {
-    var tasks = TaskGroup.fromJson(element[0]);
+    var tasks = TaskGroup.fromJson(element);
     t.add(tasks);
   });
   return t;
 } 
+
+Future addTask(int index) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups[index].tasks.insert(0, Task(description: "", tags: List<String>.empty(growable: true), members: List<User>.empty(growable: true), groupName: groups[index].name));
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
+
+int getRandomColor(){
+  var rand = Random();
+  return Color.fromARGB(176, rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)).value;
+}
+
+Future addGroup(String name) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  var group = TaskGroup(name: name, tasks: List<Task>.empty(growable: true), color: getRandomColor());
+  groups.add(group);
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+  return group;
+}
 
 // Future<void> updateInfo(Info inf) async{
 //   final file = await _taskFile;

@@ -1,11 +1,13 @@
 import 'package:app/components/AddButton.dart';
 import 'package:app/components/ProjectDrawer.dart';
+import 'package:app/domain/task/task.dart';
 import 'package:app/domain/taskGroupManager.dart';
 import 'package:app/pages/info.dart';
 import 'package:flutter/material.dart';
 import 'package:app/pages/members.dart';
 import 'package:app/domain/taskGroup/taskGroup.dart';
 import 'package:app/pages/taskDetailed.dart';
+import 'package:app/domain/user/user.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -20,8 +22,18 @@ class _ProjectPageState extends State<ProjectPage> {
 
   GetTasks() async{
     taskGroupsList = await getTasks();
-    setState(() {
+    setState(() {});
+  }
 
+  AddTask(int index) async{
+    await addTask(index);
+    setState(() {});
+  }
+
+  AddGroup(String name) async{
+    var group = await addGroup(name);
+    setState(() {
+      taskGroupsList.add(group);
     });
   }
 
@@ -67,8 +79,32 @@ class _ProjectPageState extends State<ProjectPage> {
                   Flexible(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: taskGroupsList[index].tasks.length,
+                      itemCount: taskGroupsList[index].tasks.length + 1,
                       itemBuilder:(context, i) {
+                        if (i == taskGroupsList[index].tasks.length){
+                          return Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              margin: const EdgeInsets.all(4),
+                              child: ElevatedButton.icon(
+                                icon: const Icon(Icons.add_box, color: Color.fromRGBO(212, 190, 242, 1.0)),
+                                label: const Text('Add', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),
+                                onPressed: (){
+                                  AddTask(index);
+                                  taskGroupsList[index].tasks.insert(0, Task(description: "", tags: List<String>.empty(growable: true), members: List<User>.empty(growable: true), groupName: taskGroupsList[index].name));
+                                },
+                                style: const ButtonStyle(
+                                  backgroundColor: MaterialStatePropertyAll<Color>(
+                                    Color.fromRGBO(14, 70, 73, 1.0)
+                                  ),
+                                  padding: MaterialStatePropertyAll<EdgeInsets>(
+                                    EdgeInsets.all(2)
+                                  )
+                                ),
+                              ),
+                            ),
+                          );
+                        }
                         return GestureDetector(
                           onTap: () => {
                             Navigator.push(
@@ -119,25 +155,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       },
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      margin: const EdgeInsets.all(4),
-                      child: ElevatedButton.icon(
-                        icon: const Icon(Icons.add_box, color: Color.fromRGBO(212, 190, 242, 1.0)),
-                        label: const Text('Add', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),
-                        onPressed: (){},
-                        style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                            Color.fromRGBO(14, 70, 73, 1.0)
-                          ),
-                          padding: MaterialStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.all(2)
-                          )
-                        ),
-                      ),
-                    ),
-                  ),
+                  //Здесь могла быть ваша кнопка
                 ]
               ),
             ),
@@ -230,7 +248,9 @@ class _ProjectPageState extends State<ProjectPage> {
                       EdgeInsets.fromLTRB(4, 2, 8, 2)
                     )
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    AddGroup(DateTime.now().minute.toString());
+                  },
                 ),
               ],
             ),
