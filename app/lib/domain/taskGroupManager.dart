@@ -109,7 +109,16 @@ Future addGroup(String name) async{
   return group;
 }
 
-// Future<void> updateInfo(Info inf) async{
-//   final file = await _taskFile;
-//   file.writeAsString(jsonEncode(inf));
-// }
+Future deleteTask(int index, String groupName) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.firstWhere((element) => element.name == groupName).tasks.removeAt(index);
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
+
+Future deleteGroup(int index) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.removeAt(index);
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}

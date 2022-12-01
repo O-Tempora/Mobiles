@@ -30,16 +30,16 @@ class _TaskDetailedState extends State<TaskDetailed> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 30),
+        padding: const EdgeInsets.fromLTRB(20, 30, 20, 30),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              padding: EdgeInsets.all(4),
+              padding: const EdgeInsets.all(4),
               decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
-                    color: const Color.fromARGB(255, 41, 42, 44),
+                    color: Color.fromARGB(255, 41, 42, 44),
                     width: 2
                   )
                 )
@@ -56,7 +56,7 @@ class _TaskDetailedState extends State<TaskDetailed> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(6),
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: const TextSpan(
@@ -81,21 +81,21 @@ class _TaskDetailedState extends State<TaskDetailed> {
                 ),
                 Expanded(
                   child: ListView.separated(
-                    padding: EdgeInsets.fromLTRB(16, 12, 10, 4),
+                    padding: const EdgeInsets.fromLTRB(16, 12, 10, 4),
                     shrinkWrap: true,
                     itemCount: widget.task.members.length,
                     itemBuilder:(context, index) {
                       return InkWell(
                         child: Text(
                           widget.task.members[index].login,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                           ),
                         )
                       );
                     }, 
-                    separatorBuilder:(context, index) => Divider(height: 12, thickness: 1,), 
+                    separatorBuilder:(context, index) => const Divider(height: 12, thickness: 1,), 
                   )
                 ),
               ]
@@ -104,7 +104,7 @@ class _TaskDetailedState extends State<TaskDetailed> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(6),
                   child: RichText(
                     textAlign: TextAlign.center,
                     text: const TextSpan(
@@ -129,21 +129,21 @@ class _TaskDetailedState extends State<TaskDetailed> {
                 ),
                 Expanded(
                   child: ListView.separated(
-                    padding: EdgeInsets.fromLTRB(66, 12, 10, 4),
+                    padding: const EdgeInsets.fromLTRB(66, 12, 10, 4),
                     shrinkWrap: true,
                     itemCount: widget.task.tags.length,
                     itemBuilder:(context, index) {
                       return InkWell(
                         child: Text(
                           widget.task.tags[index],
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                           ),
                         )
                       );
                     }, 
-                    separatorBuilder:(context, index) => Divider(height: 12, thickness: 1,), 
+                    separatorBuilder:(context, index) => const Divider(height: 12, thickness: 1,), 
                   )
                 ),
               ]

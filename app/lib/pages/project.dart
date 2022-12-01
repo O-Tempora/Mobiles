@@ -3,6 +3,7 @@ import 'package:app/components/ProjectDrawer.dart';
 import 'package:app/domain/task/task.dart';
 import 'package:app/domain/taskGroupManager.dart';
 import 'package:app/pages/info.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:app/pages/members.dart';
 import 'package:app/domain/taskGroup/taskGroup.dart';
@@ -37,6 +38,16 @@ class _ProjectPageState extends State<ProjectPage> {
     });
   }
 
+  DeleteTask(int index, String groupName) async{
+    await deleteTask(index, groupName);
+    setState(() {});
+  }
+
+  DeleteGroup(int index) async{
+    await deleteGroup(index);
+    setState(() {});
+  }
+
   @override
   void initState() {
     GetTasks();
@@ -48,7 +59,7 @@ class _ProjectPageState extends State<ProjectPage> {
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).primaryColor,
-      drawer: ProjectDrawer(),
+      drawer: const ProjectDrawer(),
       appBar: navBar(),
       body: ListView.builder(
         itemCount: taskGroupsList.length,
@@ -56,7 +67,7 @@ class _ProjectPageState extends State<ProjectPage> {
         shrinkWrap: true,
         itemBuilder:(context, index) {
           return Padding(
-            padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+            padding: const EdgeInsets.fromLTRB(8, 2, 8, 2),
             child: SizedBox(
               height: double.infinity,
               width: 220,
@@ -64,17 +75,47 @@ class _ProjectPageState extends State<ProjectPage> {
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Container(
-                      margin: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: new Color(taskGroupsList[index].color),
-                        borderRadius: BorderRadius.all(Radius.circular(8))
+                      child: PopupMenuButton(
+                        padding: const EdgeInsets.all(0),
+                        color: const Color.fromARGB(255, 31, 30, 30),
+                        position: PopupMenuPosition.under,
+                        tooltip: "Actions",
+                        itemBuilder:(BuildContext context) => [
+                          PopupMenuItem<Row>(
+                            child: Row(
+                              children: const [
+                                Icon(Icons.edit, size: 20, color: Color.fromRGBO(212, 190, 242, 1.0)),
+                                Text(' Rename group', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0)))
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem<Row>(
+                            child: Row(
+                              children: const [
+                                Icon(Icons.delete_forever, size: 20, color: Colors.red),
+                                Text(' Delete group', style: TextStyle(color: Colors.red))
+                              ],
+                            ),
+                            onTap: () {
+                              DeleteGroup(index);
+                              setState(() {
+                                taskGroupsList.removeAt(index);
+                              });
+                            },
+                          ),
+                        ],
+                        child: Container(
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: Color(taskGroupsList[index].color),
+                            borderRadius: const BorderRadius.all(Radius.circular(8))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(2),
+                            child: Text(taskGroupsList[index].name, style: const TextStyle(color: Colors.black, fontSize: 18))
+                          )
+                        ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(2),
-                        child: Text(taskGroupsList[index].name, style: TextStyle(color: Colors.black))
-                      )
-                    ),
                   ),
                   Flexible(
                     child: ListView.builder(
@@ -112,6 +153,54 @@ class _ProjectPageState extends State<ProjectPage> {
                               MaterialPageRoute(builder:(context) => TaskDetailed(task:taskGroupsList[index].tasks[i]))
                             )
                           },
+                          onLongPress: () => {
+                            showDialog<String>(
+                              context: context ,
+                              builder:(BuildContext context){ 
+                                return AlertDialog(
+                                  backgroundColor: const Color.fromARGB(255, 41, 42, 44),
+                                  title: const Text(
+                                    textAlign: TextAlign.center,
+                                    'Delete task?',
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(212, 190, 242, 1.0),
+                                      fontSize: 20
+                                    )
+                                  ),
+                                  actions: <Widget>[
+                                    OutlinedButton(
+                                      onPressed: (() {
+                                        DeleteTask(index, taskGroupsList[index].name);
+                                        setState(() {
+                                          taskGroupsList[index].tasks.removeAt(i);
+                                        });
+                                        Navigator.of(context).pop();
+                                      }), 
+                                      child: const Text(
+                                        'Ok',
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(212, 190, 242, 1.0),
+                                          fontSize: 14
+                                        )
+                                      )
+                                    ), 
+                                    OutlinedButton(
+                                      onPressed: (() {
+                                        Navigator.of(context).pop();
+                                      }), 
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(212, 190, 242, 1.0),
+                                          fontSize: 14
+                                        )
+                                      )
+                                    ), 
+                                  ]
+                                );
+                              } 
+                            )
+                          },
                           child: Card(
                             elevation: 4.0,
                             shape: RoundedRectangleBorder(
@@ -124,7 +213,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 ListTile(
                                   title: Text(
                                     taskGroupsList[index].tasks[i].description,
-                                    style: TextStyle(color: Colors.white, fontSize: 16), 
+                                    style: const TextStyle(color: Colors.white, fontSize: 16), 
                                     maxLines: 6,
                                     overflow: TextOverflow.ellipsis
                                   )
@@ -155,7 +244,7 @@ class _ProjectPageState extends State<ProjectPage> {
                       },
                     ),
                   ),
-                  //Здесь могла быть ваша кнопка
+                  //Здесь могла быть ваша кнопка;
                 ]
               ),
             ),
