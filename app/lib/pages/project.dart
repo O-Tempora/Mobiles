@@ -28,24 +28,26 @@ class _ProjectPageState extends State<ProjectPage> {
 
   AddTask(int index) async{
     await addTask(index);
-    setState(() {});
+    setState(() {
+    });
   }
 
   AddGroup(String name) async{
     var group = await addGroup(name);
     setState(() {
-      taskGroupsList.add(group);
     });
   }
 
-  DeleteTask(int index, String groupName) async{
+  DeleteTask(int index, String groupName) async {
     await deleteTask(index, groupName);
-    setState(() {});
+    setState(() {
+    });
   }
 
   DeleteGroup(int index) async{
     await deleteGroup(index);
-    setState(() {});
+    setState(() {
+    });
   }
 
   @override
@@ -132,7 +134,9 @@ class _ProjectPageState extends State<ProjectPage> {
                                 label: const Text('Add', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0))),
                                 onPressed: (){
                                   AddTask(index);
-                                  taskGroupsList[index].tasks.insert(0, Task(description: "", tags: List<String>.empty(growable: true), members: List<User>.empty(growable: true), groupName: taskGroupsList[index].name));
+                                  setState(() {
+                                    taskGroupsList[index].tasks.insert(0, Task(description: "", tags: List<String>.empty(growable: true), members: List<User>.empty(growable: true), groupName: taskGroupsList[index].name));
+                                  });
                                 },
                                 style: const ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll<Color>(
@@ -147,11 +151,15 @@ class _ProjectPageState extends State<ProjectPage> {
                           );
                         }
                         return GestureDetector(
-                          onTap: () => {
-                            Navigator.push(
+                          onTap: () async {
+                            final value = await Navigator.push(
                               context,
-                              MaterialPageRoute(builder:(context) => TaskDetailed(task:taskGroupsList[index].tasks[i]))
-                            )
+                              MaterialPageRoute(builder:(context) => TaskDetailed(task:taskGroupsList[index].tasks[i], index:i))
+                            );
+                            setState(() {
+                              GetTasks();
+                            });
+                            //GetTasks();
                           },
                           onLongPress: () => {
                             showDialog<String>(
@@ -170,7 +178,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                   actions: <Widget>[
                                     OutlinedButton(
                                       onPressed: (() {
-                                        DeleteTask(index, taskGroupsList[index].name);
+                                        DeleteTask(i, taskGroupsList[index].name);
                                         setState(() {
                                           taskGroupsList[index].tasks.removeAt(i);
                                         });

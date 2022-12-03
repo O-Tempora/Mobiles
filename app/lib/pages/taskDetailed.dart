@@ -1,3 +1,4 @@
+import 'package:app/domain/taskGroupManager.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -5,13 +6,24 @@ import 'package:app/domain/task/task.dart';
 
 class TaskDetailed extends StatefulWidget {
   final Task task;
-  const TaskDetailed({super.key, required this.task});
+  final int index;
+  const TaskDetailed({super.key, required this.task, required this.index});
 
   @override
   State<TaskDetailed> createState() => _TaskDetailedState();
 }
 
 class _TaskDetailedState extends State<TaskDetailed> {
+  TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void initState(){
+    setState(() {
+      descriptionController.text = widget.task.description;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +39,12 @@ class _TaskDetailedState extends State<TaskDetailed> {
             fontStyle: FontStyle.italic
           )
         ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => {
+            Navigator.pop(context)
+          },
+        ), 
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -36,21 +54,25 @@ class _TaskDetailedState extends State<TaskDetailed> {
           children: [
             Container(
               padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: Color.fromARGB(255, 41, 42, 44),
-                    width: 2
-                  )
-                )
+              child: InkWell(
+                onFocusChange: (value) {
+                  if (value == false){
+                    updateTask(widget.index, widget.task.groupName, descriptionController.text);
+                  }
+                },
+                child: TextField(
+                  controller: descriptionController,
+                  textInputAction: TextInputAction.newline,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    fillColor: Theme.of(context).primaryColor,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.white
+                  ),
+                ),
               ),
-              child: Text(
-                widget.task.description,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                )
-              )
             ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,

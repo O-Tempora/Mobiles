@@ -122,3 +122,10 @@ Future deleteGroup(int index) async{
   groups.removeAt(index);
   file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
 }
+
+Future updateTask(int index, String groupName, String text) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.firstWhere((element) => element.name == groupName).tasks[index].description = text;
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
