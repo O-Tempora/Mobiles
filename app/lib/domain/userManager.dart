@@ -56,3 +56,32 @@ Future<void> deleteUser(String login) async{
   file.writeAsString(jsonEncode(users.map((e) => e.toJson()).toList()));
   return;
 }
+
+Future<bool> authenticateUser(String login, String password) async{
+  var users = await getUsers();
+  bool flag = false;
+  users.forEach((element) {
+    if (element.login == login && element.password == password){
+      flag = true;
+    }
+  });
+  return flag;
+}
+
+Future<bool> checkUserByLogin(String login) async{
+  var users = await getUsers();
+  bool flag = true;
+  users.forEach((element) { 
+    if (element.login == login){
+      flag = false;
+    }
+  });
+  return flag;
+}
+
+Future createAccount(String name, String login, String password, String email) async{
+  var users = await getUsers();
+  final file = await _userFile;
+  users.add(User(name: name, login: login, email: email, password: password));
+  file.writeAsString(jsonEncode(users.map((e) => e.toJson()).toList()));
+}

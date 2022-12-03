@@ -347,6 +347,9 @@ class _ProjectPageState extends State<ProjectPage> {
                   ),
                   onPressed: (){
                     AddGroup(DateTime.now().minute.toString());
+                    setState((){
+                      taskGroupsList.add(TaskGroup(name: DateTime.now().minute.toString(), tasks: <Task>[], color: getRandomColor()));
+                    });
                   },
                 ),
               ],
