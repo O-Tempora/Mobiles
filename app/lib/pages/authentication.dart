@@ -1,3 +1,4 @@
+import 'package:app/domain/userManager.dart';
 import 'package:app/pages/project.dart';
 import 'package:app/pages/registration.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,10 @@ class AuthenticationPage extends StatefulWidget {
 }
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
+  TextEditingController loginController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool isValid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -62,17 +67,22 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         child: Column(
           children: <Widget>[
             TextField(
+              controller: loginController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
                 filled: true,
                 fillColor: const Color.fromRGBO(217, 217, 217, 1.0),
                 hintText: 'Login',
-                hintStyle: const TextStyle(fontStyle: FontStyle.italic)
+                hintStyle: const TextStyle(fontStyle: FontStyle.italic),
+                errorText: isValid? null : "Неверный логин или пароль",
+                errorStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16),
               child: TextField(
+                controller: passwordController,
+                obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
                   filled: true,
@@ -93,11 +103,22 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                       Color.fromRGBO(138, 117, 159, 1.0)
                     )
                   ),
-                  onPressed: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder:(context) => const ProjectPage())
-                    )
+                  onPressed: () async {
+                    var userExists = await authenticateUser(loginController.text, passwordController.text);
+                    if (userExists){
+                      setState(() {
+                        isValid = true;
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(builder:(context) => const ProjectPage()));
+                      });
+                    } else {
+                      loginController.text = "";
+                      passwordController.text = "";
+                      setState(() {
+                        isValid = false;
+                      });
+                    }
                   },
                   child: const Text('Sign In', 
                     textAlign: TextAlign.center, 
