@@ -9,6 +9,7 @@ import 'package:app/pages/members.dart';
 import 'package:app/domain/taskGroup/taskGroup.dart';
 import 'package:app/pages/taskDetailed.dart';
 import 'package:app/domain/user/user.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class ProjectPage extends StatefulWidget {
   const ProjectPage({super.key});
@@ -20,6 +21,9 @@ class ProjectPage extends StatefulWidget {
 class _ProjectPageState extends State<ProjectPage> {
   List<TaskGroup> taskGroupsList = List<TaskGroup>.empty(growable: true);
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController newGroupController = TextEditingController();
+  TextEditingController newNameController = TextEditingController();
+  Color newGroupColor = Colors.black;
 
   GetTasks() async{
     taskGroupsList = await getTasks();
@@ -32,8 +36,8 @@ class _ProjectPageState extends State<ProjectPage> {
     });
   }
 
-  AddGroup(String name) async{
-    var group = await addGroup(name);
+  AddGroup(String name, Color color) async{
+    var group = await addGroup(name, color);
     setState(() {
     });
   }
@@ -46,6 +50,18 @@ class _ProjectPageState extends State<ProjectPage> {
 
   DeleteGroup(int index) async{
     await deleteGroup(index);
+    setState(() {
+    });
+  }
+
+  ChangeTaskStatus(int index, String groupName) async{
+    await changeTaskStatus(index, groupName);
+    setState(() {
+    });
+  }
+
+  RenameGroup(String name, String groupName) async{
+    await renameGroup(name, groupName);
     setState(() {
     });
   }
@@ -90,6 +106,68 @@ class _ProjectPageState extends State<ProjectPage> {
                                 Text(' Rename group', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0)))
                               ],
                             ),
+                            onTap:(){
+                              Future.delayed(
+                                const Duration(seconds: 0),
+                                () => showDialog<void>(
+                                  context: context ,
+                                  builder:(BuildContext context){ 
+                                    return AlertDialog(
+                                      backgroundColor: const Color.fromARGB(255, 41, 42, 44),
+                                      title: const Text(
+                                        textAlign: TextAlign.center,
+                                        'Print new name',
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(212, 190, 242, 1.0),
+                                          fontSize: 20
+                                        )
+                                      ),
+                                      content: TextField(
+                                        controller: newNameController,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18
+                                        ),
+                                        decoration: const InputDecoration(
+                                          hintText: 'New name',
+                                          hintStyle: TextStyle(color: Colors.white, fontSize: 16, fontStyle: FontStyle.italic),
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        OutlinedButton(
+                                          onPressed: (() {
+                                            RenameGroup(newNameController.text, taskGroupsList[index].name);
+                                            setState(() {
+                                              taskGroupsList[index].name = newNameController.text;
+                                            });
+                                            Navigator.of(context).pop();
+                                          }), 
+                                          child: const Text(
+                                            'Ok',
+                                            style: TextStyle(
+                                              color: Color.fromRGBO(212, 190, 242, 1.0),
+                                              fontSize: 14
+                                            )
+                                          )
+                                        ), 
+                                        OutlinedButton(
+                                          onPressed: (() {
+                                            Navigator.of(context).pop();
+                                          }), 
+                                          child: const Text(
+                                            'Cancel',
+                                            style: TextStyle(
+                                              color: Color.fromRGBO(212, 190, 242, 1.0),
+                                              fontSize: 14
+                                            )
+                                          )
+                                        ), 
+                                      ]
+                                    );
+                                  } 
+                                )
+                              );
+                            },
                           ),
                           PopupMenuItem<Row>(
                             child: Row(
@@ -135,7 +213,7 @@ class _ProjectPageState extends State<ProjectPage> {
                                 onPressed: (){
                                   AddTask(index);
                                   setState(() {
-                                    taskGroupsList[index].tasks.insert(0, Task(description: "", tags: List<String>.empty(growable: true), members: List<User>.empty(growable: true), groupName: taskGroupsList[index].name));
+                                    taskGroupsList[index].tasks.insert(0, Task(description: "", tags: List<String>.empty(growable: true), members: List<User>.empty(growable: true), groupName: taskGroupsList[index].name, isDone: false));
                                   });
                                 },
                                 style: const ButtonStyle(
@@ -159,7 +237,18 @@ class _ProjectPageState extends State<ProjectPage> {
                             setState(() {
                               GetTasks();
                             });
-                            //GetTasks();
+                          },
+                          onDoubleTap: () {
+                            ChangeTaskStatus(i, taskGroupsList[index].name);
+                            setState(() {
+                              taskGroupsList[index].tasks[i].isDone = !taskGroupsList[index].tasks[i].isDone;
+                            });
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Task status was changed!', style: TextStyle(color: Color.fromRGBO(212, 190, 242, 1.0), fontSize: 16, fontStyle: FontStyle.italic)),
+                                duration: Duration(seconds: 2),
+                              )
+                            );
                           },
                           onLongPress: () => {
                             showDialog<String>(
@@ -212,7 +301,12 @@ class _ProjectPageState extends State<ProjectPage> {
                           child: Card(
                             elevation: 4.0,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)
+                              borderRadius: BorderRadius.circular(12),
+                              side: BorderSide(
+                                color: taskGroupsList[index].tasks[i].isDone? const Color.fromARGB(255, 12, 224, 19) : const Color.fromARGB(221, 39, 38, 38),
+                                width: 4,
+                                style: BorderStyle.solid
+                              )
                             ),
                             color: const Color.fromARGB(255, 41, 42, 44),
                             child: Column(
@@ -346,10 +440,62 @@ class _ProjectPageState extends State<ProjectPage> {
                     )
                   ),
                   onPressed: (){
-                    AddGroup(DateTime.now().minute.toString());
-                    setState((){
-                      taskGroupsList.add(TaskGroup(name: DateTime.now().minute.toString(), tasks: <Task>[], color: getRandomColor()));
-                    });
+                    showDialog<String>(
+                      context: context ,
+                      builder:(BuildContext context){ 
+                        return AlertDialog(
+                          backgroundColor: const Color.fromRGBO(14, 70, 73, 1.0),
+                          title: TextField(
+                            controller: newGroupController,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18
+                            ),
+                            decoration: const InputDecoration(
+                              hintText: 'Enter group name',
+                              hintStyle: TextStyle(color: Colors.white, fontSize: 16, fontStyle: FontStyle.italic),
+                            ),
+                          ),
+                          content: ColorPicker(
+                            pickerColor: newGroupColor,
+                            labelTypes: [],
+                            onColorChanged:(value) => setState(() {
+                              newGroupColor = value;
+                            }),
+                          ),
+                          actions: <Widget>[
+                            OutlinedButton(
+                              onPressed: (() {
+                                AddGroup(newGroupController.text, newGroupColor);
+                                setState((){
+                                  taskGroupsList.add(TaskGroup(name: newGroupController.text, tasks: <Task>[], color: newGroupColor.value));
+                                });
+                                Navigator.of(context).pop();
+                              }), 
+                              child: const Text(
+                                'Ok',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(212, 190, 242, 1.0),
+                                  fontSize: 18
+                                )
+                              )
+                            ), 
+                            OutlinedButton(
+                              onPressed: (() {
+                                Navigator.of(context).pop();
+                              }), 
+                              child: const Text(
+                                'Cancel',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(212, 190, 242, 1.0),
+                                  fontSize: 18
+                                )
+                              )
+                            ), 
+                          ]
+                        );
+                      } 
+                    );
                   },
                 ),
               ],

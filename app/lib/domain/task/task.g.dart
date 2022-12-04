@@ -13,6 +13,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           .map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
       groupName: json['groupName'] as String,
+      isDone: json['isDone'] as bool,
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'tags': instance.tags,
       'members': instance.members.map((e) => e.toJson()).toList(),
       'groupName': instance.groupName,
+      'isDone': instance.isDone,
     };
