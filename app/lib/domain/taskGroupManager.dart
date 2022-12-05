@@ -99,11 +99,6 @@ Future addTask(int index) async{
   file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
 }
 
-// int getRandomColor(){
-//   var rand = Random();
-//   return Color.fromARGB(176, rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)).value;
-// }
-
 Future addGroup(String name, Color color) async{
   var groups = await getTasks();
   final file = await _taskFile;
@@ -145,5 +140,33 @@ Future renameGroup(String name, String groupName) async{
   var groups = await getTasks();
   final file = await _taskFile;
   groups.firstWhere((element) => element.name == groupName).name = name;
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
+
+Future removeTag(String groupName, int task, int tag) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.firstWhere((element) => element.name == groupName).tasks[task].tags.removeAt(tag);
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
+
+Future removeMember(String groupName, int task, int member) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.firstWhere((element) => element.name == groupName).tasks[task].members.removeAt(member);
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
+
+Future addTag(String groupName, int task, String tag) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.firstWhere((element) => element.name == groupName).tasks[task].tags.add(tag);
+  file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
+}
+
+Future addMember(String groupName, int task, User member) async{
+  var groups = await getTasks();
+  final file = await _taskFile;
+  groups.firstWhere((element) => element.name == groupName).tasks[task].members.add(member);
   file.writeAsString(jsonEncode(groups.map((e) => e.toJson()).toList()));
 }
