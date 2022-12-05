@@ -456,12 +456,15 @@ class _ProjectPageState extends State<ProjectPage> {
                               hintStyle: TextStyle(color: Colors.white, fontSize: 16, fontStyle: FontStyle.italic),
                             ),
                           ),
-                          content: ColorPicker(
-                            pickerColor: newGroupColor,
-                            labelTypes: [],
-                            onColorChanged:(value) => setState(() {
-                              newGroupColor = value;
-                            }),
+                          content: SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ColorPicker(
+                              pickerColor: newGroupColor,
+                              labelTypes: [],
+                              onColorChanged:(value) => setState(() {
+                                newGroupColor = value;
+                              }),
+                            ),
                           ),
                           actions: <Widget>[
                             OutlinedButton(
