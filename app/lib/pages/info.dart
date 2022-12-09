@@ -116,7 +116,7 @@ class _InfoPageState extends State<InfoPage> {
                   InkWell(
                     onFocusChange: (value) {
                       if (value == false){
-                        info.name = nameController.text;
+                        info.description = descrController.text;
                         updateInfo(info);
                       }
                     },
@@ -148,7 +148,7 @@ class _InfoPageState extends State<InfoPage> {
                   InkWell(
                     onFocusChange: (value) {
                       if (value == false){
-                        info.name = nameController.text;
+                        info.repository = repoController.text;
                         updateInfo(info);
                       }
                     },
